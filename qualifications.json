@@ -1,0 +1,770 @@
+{
+  "civics_highschool_license": {
+    "name": "高等学校教諭一種免許状（公民）",
+    "sections": [
+      {
+        "title": "法律学・政治学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GE81301",
+            "name": "情報法",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE81401",
+            "name": "知的財産権論A",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "社会学・経済学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GE21401",
+            "name": "メディア社会学",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE20401",
+            "name": "量的調査法",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE62701",
+            "name": "メディア技術と文化",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE20701",
+            "name": "質的調査法",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE20801",
+            "name": "情報行動論",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE22101",
+            "name": "経営・組織論",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "哲学・倫理・宗教・心理",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GE10201",
+            "name": "哲学",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE60501",
+            "name": "知識論",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE81101",
+            "name": "メディア教育の実践と評価",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      }
+    ],
+    "total_credits_required": 20
+  },
+
+  "math_highschool_license": {
+    "name": "高等学校教諭一種免許状（数学）",
+    "sections": [
+      {
+        "title": "代数学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 1
+        },
+        "courses": [
+          {
+            "id": ["GA15211", "GA15221", "GA15231", "GA15241"],
+            "name": "線形代数A",
+            "credits": 2,
+            "category": "elective_required"
+          },
+          {
+            "id": "GE22401",
+            "name": "情報数学B",
+            "credits": 2,
+            "category": "elective_required"
+          },
+          {
+            "id": ["GA15111", "GA15121", "GA15131", "GA15141"],
+            "name": "情報数学A",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "幾何学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GC23304",
+            "name": "CG基礎",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GC21601",
+            "name": "情報数学C",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "解析学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 1
+        },
+        "courses": [
+          {
+            "id": ["GA15311", "GA15321", "GA15331", "GA15341"],
+            "name": "微分積分A",
+            "credits": 2,
+            "category": "elective_required"
+          },
+          {
+            "id": ["GB10444", "GB10454"],
+            "name": "微分積分B",
+            "credits": 2,
+            "category": "elective_required"
+          },
+          {
+            "id": "GB12301",
+            "name": "数値計算法",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GB10524",
+            "name": "微分方程式",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "確率論、統計学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GE10911",
+            "name": "統計",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE20511",
+            "name": "多変量解析",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE22201",
+            "name": "機械学習",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "コンピュータ",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": ["GE71801", "GE61801"],
+            "name": "データ構造とアルゴリズム",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": ["GE11212", "GE11222"],
+            "name": "知識情報演習Ⅲ",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE70801",
+            "name": "データ表現と処理",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE21201",
+            "name": "コンピュータシステムとネットワーク",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": ["GE61901", "GE70501"],
+            "name": "情報検索システム",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE21101",
+            "name": "データベース概説",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE70601",
+            "name": "Webプログラミング",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      }
+    ],
+    "total_credits_required": 20
+  },
+  "social_junior_license": {
+    "name": "中学校教諭一種免許状（社会）",
+    "sections": [
+      {
+        "title": "日本史",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "AC50A31",
+            "name": "日本研究概論Ⅰ",
+            "credits": 1,
+            "category": "required"
+          },
+          {
+            "id": "AC50A41",
+            "name": "日本研究概論Ⅱ",
+            "credits": 1,
+            "category": "required"
+          },
+          {
+            "id": "AE56A41",
+            "name": "共生のための歴史学",
+            "credits": 1,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "外国史",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 1
+        },
+        "courses": [
+          {
+            "id": "AC50C11",
+            "name": "欧米研究概論",
+            "credits": 1,
+            "category": "required"
+          },
+          {
+            "id": "AC50A91",
+            "name": "アジア研究概論",
+            "credits": 1,
+            "category": "elective_required"
+          },
+          {
+            "id": "AE13G21",
+            "name": "東洋の歴史と文化",
+            "credits": 1,
+            "category": "elective_required"
+          },
+          {
+            "id": "GE81901",
+            "name": "図書館文化史論",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "地理学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "EE21141",
+            "name": "人文地理学",
+            "credits": 1,
+            "category": "required"
+          },
+          {
+            "id": "EE21241",
+            "name": "地誌学",
+            "credits": 1,
+            "category": "required"
+          }
+        ]
+      },
+      {
+        "title": "法律学、政治学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GE81301",
+            "name": "情報法",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE81401",
+            "name": "知的財産権論A",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "社会学、経済学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GE21401",
+            "name": "メディア社会学",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE20401",
+            "name": "量的調査法",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE62701",
+            "name": "メディア技術と文化",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE20701",
+            "name": "質的調査法",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE20801",
+            "name": "情報行動論",
+            "credits": 2,
+            "category": "elective"
+          },
+          {
+            "id": "GE22101",
+            "name": "経営・組織論",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      },
+      {
+        "title": "哲学、倫理学、宗教学",
+        "required_count": 1,
+        "required_course_count": {
+          "elective_required": 0
+        },
+        "courses": [
+          {
+            "id": "GE10201",
+            "name": "哲学",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE60501",
+            "name": "知識論",
+            "credits": 2,
+            "category": "elective"
+          }
+        ]
+      }
+    ],
+    "total_credits_required": 20
+  },
+  "librarian_license": {
+    "name": "司書資格（図書館に関する科目）",
+    "sections": [
+      {
+        "title": "必修科目群",
+        "required_count": 24,
+        "required_course_count": {
+          "elective_required": 1
+        },
+        "courses": [
+          {
+            "id": "GE21701",
+            "name": "生涯学習と図書館",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GA14301",
+            "name": "図書館概論",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE82601",
+            "name": "パブリックガバナンス",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE21201",
+            "name": "コンピュータシステムとネットワーク",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE80501",
+            "name": "情報サービス経営論",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE20601",
+            "name": "情報探索論",
+            "credits": 2,
+            "category": "elective_required"
+          },
+          {
+            "id": "GE80801",
+            "name": "情報サービス構成論",
+            "credits": 2,
+            "category": "elective_required"
+          },
+          {
+            "id": "GE40401",
+            "name": "読書と豊かな人間性",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": [
+              "GE11112",
+              "GE11122"
+            ],
+            "name": "知識情報演習Ⅱ",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE80901",
+            "name": "コレクションとアクセス",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": "GE21001",
+            "name": "知識資源組織化論",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": [
+              "GE11012",
+              "GE11022"
+            ],
+            "name": "知識情報演習Ⅰ",
+            "credits": 2,
+            "category": "required"
+          },
+          {
+            "id": [
+              "GE11212",
+              "GE11222"
+            ],
+            "name": "知識情報演習Ⅲ",
+            "credits": 2,
+            "category": "required"
+          }
+        ]
+      }
+    ],
+    "grouped_electives": {
+      "title": "選択科目群（以下のグループから2科目以上）",
+      "required_section_count": 2,
+      "sections": [
+        {
+          "title": "図書館基礎特論",
+          "required_count": 2,
+          "required_course_count": {
+            "elective_required": 1
+          },
+          "courses": [
+            {
+              "id": "GE80301",
+              "name": "学術情報基盤論",
+              "credits": 2,
+              "category": "elective_required"
+            },
+            {
+              "id": "GE21101",
+              "name": "データベース概説",
+              "credits": 2,
+              "category": "elective_required"
+            }
+          ]
+        },
+        {
+          "title": "図書館サービス特論",
+          "required_count": 2,
+          "required_course_count": {
+            "elective_required": 1
+          },
+          "courses": [
+            {
+              "id": "GE70401",
+              "name": "ディジタルライブラリ",
+              "credits": 2,
+              "category": "elective_required"
+            },
+            {
+              "id": "GE70201",
+              "name": "情報サービスシステム",
+              "credits": 2,
+              "category": "elective_required"
+            }
+          ]
+        },
+        {
+          "title": "図書館情報資源特論",
+          "required_count": 2,
+          "required_course_count": {
+            "elective_required": 1
+          },
+          "courses": [
+            {
+              "id": "GE72801",
+              "name": "知識資源の分類と索引",
+              "credits": 2,
+              "category": "elective_required"
+            },
+            {
+              "id": "GE60601",
+              "name": "知識形成論",
+              "credits": 2,
+              "category": "elective_required"
+            },
+            {
+              "id": "GE60801",
+              "name": "学術メディア論",
+              "credits": 2,
+              "category": "elective_required"
+            },
+            {
+              "id": "GE70301",
+              "name": "ディジタルドキュメント",
+              "credits": 2,
+              "category": "elective_required"
+            }
+          ]
+        },
+        {
+          "title": "図書・図書館史",
+          "required_count": 2,
+          "required_course_count": {
+            "elective_required": 1
+          },
+          "courses": [
+            {
+              "id": "GE81901",
+              "name": "図書館文化史論",
+              "credits": 2,
+              "category": "elective_required"
+            }
+          ]
+        },
+        {
+          "title": "図書館施設論",
+          "required_count": 2,
+          "required_course_count": {
+            "elective_required": 1
+          },
+          "courses": [
+            {
+              "id": "GE61101",
+              "name": "図書館建築論",
+              "credits": 2,
+              "category": "elective_required"
+            }
+          ]
+        },
+        {
+          "title": "図書館実習",
+          "required_count": 2,
+          "required_course_count": {
+            "elective_required": 1
+          },
+          "courses": [
+            {
+              "id": "GE40603",
+              "name": "インターンシップ",
+              "credits": 2,
+              "category": "elective_required"
+            }
+          ]
+        }
+      ]
+    },
+    "total_credits_required": 28
+  },
+  "tc_program": {
+    "name": "テクニカルコミュニケーター専門課程",
+    "sections": [
+      {
+        "title": "TC基礎",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GE60201", "name": "テクニカルコミュニケーション", "credits": 2, "category": "elective" }
+        ]
+      },
+      {
+        "title": "情報収集と分析",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GE20401", "name": "量的調査法", "credits": 2, "category": "elective"},
+          { "id": "GE20701", "name": "質的調査法", "credits": 2, "category": "elective" }
+
+        ]
+      },
+      {
+        "title": "企画設計",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GE20901", "name": "知識発見基礎論", "credits": 2, "category": "elective" },
+          { "id": "GE22601", "name": "ユーザ研究実験法", "credits": 2, "category": "elective"}
+        ]
+      },
+      {
+        "title": "情報アーキテクチャー",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": ["6126101","6127101","6127201","6127301","6127401","6127501","6127601","6127701","6127801","6127901"], "name": "情報リテラシー(講義)", "credits": 1, "category": "elective" },
+          { "id": "GA14201", "name": "知識情報システム概説", "credits": 1, "category": "elective" },
+          { "id": "GE21201", "name": "コンピュータシステムとネットワーク", "credits": 2, "category": "elective" },
+          { "id": "GE70301", "name": "ディジタルドキュメント", "credits": 2, "category": "elective" }
+        ]
+      },
+      {
+        "title": "製作管理・ディレクション",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GE60113", "name": "知識科学実習A", "credits": 1, "category": "elective" },
+          { "id": "GE60123", "name": "知識科学実習B", "credits": 1, "category": "elective" },
+          { "id": "GE70113", "name": "知識情報システム実習A", "credits": 1, "category": "elective" },
+          { "id": "GE70123", "name": "知識情報システム実習B", "credits": 1, "category": "elective" },
+          { "id": "GE80113", "name": "情報資源経営実習A", "credits": 1, "category": "elective" },
+          { "id": "GE80123", "name": "情報資源経営実習B", "credits": 1, "category": "elective" }
+
+        ]
+      },
+      {
+        "title": "デザイン・表現設計",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": ["GE11112","GE11122"], "name": "知識情報演習Ⅱ", "credits": 2, "category": "elective" },
+          { "id": "GE71001", "name": "情報デザインとインタフェース", "credits": 2, "category": "elective" },
+          { "id": "1420014", "name": "デジタルクリエイティブ基礎", "credits": 1, "category": "elective" }
+
+        ]
+      },
+      {
+        "title": "ライティング",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": ["6426102","6426202","6427101","6427202","6427302","6427402","6427502","6427602","6427702","6427802","6427902"], "name": "情報リテラシー(演習)", "credits": 1, "category": "elective" },
+          { "id": ["GE12112","GE12122","GE12132","GE12142"], "name": "アカデミックスキルズ", "credits": 1, "category": "elective" },
+          { "id": ["GE51118","GE51128"], "name": "卒業研究A", "credits": 3, "category": "elective" },
+          { "id": ["GE51218","GE51228"], "name": "卒業研究B", "credits": 3, "category": "elective" }
+        ]
+      },
+      {
+        "title": "英文ライティング",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": ["GE50712","GE50722","GE50732"], "name": "専門英語B", "credits": 1, "category": "elective" },
+          { "id": ["GE50812","GE50822","GE50832"], "name": "専門英語C", "credits": 1, "category": "elective" }
+        ]
+      },
+      {
+        "title": "デザイン・表現設計",
+        "required_count": 2,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GA10201", "name": "知的財産概論", "credits": 2,"category":"elective"},
+          { "id": "GE81401", "name": "知的財産権論A", "credits": 2, "category": "elective" },
+          { "id": "GA10101", "name": "情報社会と法制度", "credits": 2, "category": "elective" },
+          { "id": "GE81301", "name": "情報法", "credits": 2, "category": "elective" },
+          { "id": "GE40703", "name": "国際インターンシップ", "credits": 2, "category": "elective" }
+        ]
+      }
+    ],
+    "total_credits_required": 18
+  }
+}

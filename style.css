@@ -1,0 +1,76 @@
+body {
+  font-family: sans-serif;
+  margin: 2rem;
+  background: #f9f9f9;
+  color: #333;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-section input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.result {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #e0f7fa;
+  border-left: 4px solid #00796b;
+}
+
+.result ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+#output li {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+/* デフォルトは「・」のまま */
+li {
+  list-style-position: outside;
+  margin-left: 1em;
+}
+
+/* ✔ のリストマーカー */
+li.check::marker {
+  content: "✔ ";
+  color: green;
+}
+
+/* ✖ のリストマーカー */
+li.cross::marker {
+  content: "✖ ";
+  color: red;
+}

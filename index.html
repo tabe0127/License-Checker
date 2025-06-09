@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>資格要件チェッカー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>資格要件チェッカー</h1>
+  <div class="form-section">
+    <h2>成績表CSVをアップロードしてください</h2>
+    <input type="file" id="csvFile" accept=".csv">
+    <br><br>
+    <label for="qualificationSelect"><strong>チェックする資格を選んでください：</strong></label>
+    <select id="qualificationSelect">
+      <option value="">-- 資格を選択 --</option>
+    </select>
+    <br><br>
+    <button type="button" onclick="handleCSVUpload()">チェックする</button>
+  </div>
+  <div class="result" id="result" style="display:none">
+    <h2>チェック結果</h2>
+    <div class="legend" id="legend" style="margin-top: 1em; background: white; padding: 0.5em; display: none; border-radius: 0.5rem;">
+      <strong>色の凡例：</strong>
+      <ul style="list-style: none; padding-left: 0;">
+        <li style="color: green;">✔ 履修済み</li>
+        <li style="color: red;">✖ 単位不足の未履修</li>
+        <li style="color: orange;">・履修中</li>
+      </ul>
+    </div>
+    <br>
+    <div id="output" style="background: white; border-radius: 0.5rem; padding: 1em;"></div>
+  </div>
+
+  <script>
+    let qualificationData = {};
+
+    async function loadQualificationData() {
+      const response = await fetch("qualifications.json");
+      qualificationData = await response.json();
+      const selector = document.getElementById("qualificationSelect");
+      Object.entries(qualificationData).sort((a, b) =>
+        a[1].name.localeCompare(b[1].name, 'ja')
+      ).forEach(([key, value]) => {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = value.name;
+        selector.appendChild(option);
+      });
+    }
+
+    function courseMatches(course, takenCourses) {
+      const ids = Array.isArray(course.id) ? course.id : [course.id];
+      return ids.some(id => takenCourses.includes(id));
+    }
+
+    function getCourseGrade(course, parsed) {
+      const ids = Array.isArray(course.id) ? course.id : [course.id];
+      for (const id of ids) {
+        const match = parsed.find(p => p.courseId === id);
+        if (match) return match.grade;
+      }
+      return '';
+    }
+
+    function displayCourseId(course) {
+      return Array.isArray(course.id) ? course.id.join("/") : course.id;
+    }
+
+    function parseCSV(text) {
+      const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+      const headers = lines[0].split(',').map(h => h.trim());
+      const courseIdIndex = headers.findIndex(h => h.includes("科目番号"));
+      const nameIndex = headers.findIndex(h => h.includes("科目名"));
+      const creditIndex = headers.findIndex(h => h.includes("単位"));
+      const gradeIndex = headers.findIndex(h => h.includes("総合評価"));
+
+      const result = [];
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',').map(c => c.trim());
+        result.push({
+          courseId: cols[courseIdIndex].replace(/^"|"$/g, ''),
+          name: cols[nameIndex].replace(/^"|"$/g, ''),
+          credits: parseFloat(cols[creditIndex]),
+          grade: cols[gradeIndex].replace(/^"|"$/g, '')
+        });
+      }
+      return result;
+    }
+
+    function handleCSVUpload() {
+      document.getElementById("output").innerHTML = "";
+      const selectedKey = document.getElementById("qualificationSelect").value;
+      const file = document.getElementById("csvFile").files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const parsed = parseCSV(text);
+        const takenCourses = parsed
+          .filter(row => ["A+", "A", "B", "C", "P"].includes(row.grade))
+          .map(row => row.courseId);
+        checkQualifications(takenCourses, parsed, selectedKey);
+      };
+      reader.readAsText(file);
+    }
+
+    function checkQualifications(takenCourses, parsed, selectedKey) {
+      const outputDiv = document.getElementById("output");
+      const qual = qualificationData[selectedKey];
+      outputDiv.innerHTML += `<h2>${qual.name}</h2>`;
+      const isLabelSuppressed = selectedKey === 'librarian_license' || selectedKey === 'tc_program';
+
+      let totalCredits = 0;
+      let allRequirementsMet = true;
+
+      let totalCompletedCredits = 0; // 履修済みの単位数
+
+
+      function displayGroup(group, title, needCount = null, isGrouped = false, suppressLabel = false, sectionNeedsAttention = false) {
+  if (group.length === 0) return;
+
+  const isSuppressed = suppressLabel && (title === '選択必修' || title === '選択');
+  const takenCount = group.filter(c => courseMatches(c, takenCourses)).length;
+  const displayNeed = needCount !== null ? needCount : group.length;
+  const showProgress = !isSuppressed && !isGrouped && (title === '必修' || title === '選択必修') && needCount !== null;
+  const progress = showProgress ? `（${takenCount}/${displayNeed}科目）` : '';
+  const label = isSuppressed ? '' : `<span>${title}${progress}</span>`;
+
+  if (label) outputDiv.innerHTML += `<h4>${label}</h4>`;
+
+  outputDiv.innerHTML += `<ul>` + group.map(c => {
+    const taken = courseMatches(c, takenCourses);
+    const grade = getCourseGrade(c, parsed);
+
+    let color = 'inherit';
+    let liClass = ''; // マーカー制御用
+
+    if (taken) {
+      color = 'green';
+      liClass = 'check';
+    } else if (grade === '履修中') {
+      color = 'orange';
+      // デフォルトマーカーのまま
+    } else if (!taken && title === '必修') {
+      color = 'red';
+      liClass = 'cross';
+    } else if (!taken && grade !== '履修中' && sectionNeedsAttention) {
+      color = 'red';
+      liClass = 'cross';
+    }
+
+    return `<li class="${liClass}" style="color: ${color};">${c.name} (${displayCourseId(c)}, ${c.credits}単位)</li>`;
+  }).join('') + `</ul>`;
+}
+
+
+      function sectionIsUnderfilled(courses, required) {
+        const completed = courses.filter(c => courseMatches(c, takenCourses));
+        const inProgress = courses.filter(c => getCourseGrade(c, parsed) === "履修中");
+        const total = [...completed, ...inProgress];
+        const creditSum = total.reduce((sum, c) => sum + (c.credits || 0), 0);
+        return creditSum < required;
+      }
+
+      // 通常セクション
+      qual.sections.forEach(section => {
+        let sectionRequirementMet = true;
+        const required = [], electiveRequired = [], elective = [];
+        section.courses.forEach(c => {
+          if (c.category === 'required') required.push(c);
+          else if (c.category === 'elective_required') electiveRequired.push(c);
+          else elective.push(c);
+        });
+
+        const sectionNeedsAttention = sectionIsUnderfilled(section.courses, section.required_count);
+        if (sectionNeedsAttention) allRequirementsMet = false;
+
+        // 1. 必修が全て履修済みか
+const requiredCompleted = required.filter(c => courseMatches(c, takenCourses));
+if (requiredCompleted.length < required.length) {
+  sectionRequirementMet = false;
+}
+
+// 2. 選択必修の中で履修済みの数
+const electiveRequiredCompleted = electiveRequired.filter(c => courseMatches(c, takenCourses));
+if (electiveRequiredCompleted.length < (section.required_course_count?.elective_required || 0)) {
+  sectionRequirementMet = false;
+}
+
+// 3. 全体の単位数（履修済＋履修中）で満たしているかどうかは display には使うが、合否判定には履修済みのみで評価
+const allCourses = section.courses;
+const sectionCompleted = allCourses.filter(c => courseMatches(c, takenCourses));
+const completedCredits = sectionCompleted.reduce((sum, c) => sum + (c.credits || 0), 0);
+if (completedCredits < section.required_count) {
+  sectionRequirementMet = false;
+}
+
+if (!sectionRequirementMet) allRequirementsMet = false;
+
+        outputDiv.innerHTML += `<h3>${section.title}（${section.required_count}単位以上）</h3>`;
+        displayGroup(required, '必修', required.length, false, isLabelSuppressed, sectionNeedsAttention);
+        displayGroup(electiveRequired, '選択必修', section.required_course_count?.elective_required || 0, false, isLabelSuppressed, sectionNeedsAttention);
+        displayGroup(elective, '選択', null, false, isLabelSuppressed, sectionNeedsAttention);
+
+        const completed = section.courses.filter(c => courseMatches(c, takenCourses));
+        totalCredits += completed.reduce((sum, c) => sum + (c.credits || 0), 0);
+        totalCompletedCredits += completed.reduce((sum, c) => sum + (c.credits || 0), 0);
+      });
+
+      // grouped electives
+      if (qual.grouped_electives) {
+      const group = qual.grouped_electives;
+      let satisfiedSectionCount = 0;
+
+      outputDiv.innerHTML += `<h3>${group.title}（${group.required_section_count}分野以上）</h3>`;
+
+      // まず履修中＋履修済みで分野達成している数を調べる
+      let satisfiedByProgressCount = group.sections.filter(subSection => {
+        const allCourses = subSection.courses;
+        const completed = allCourses.filter(c => courseMatches(c, takenCourses));
+        const inProgress = allCourses.filter(c => getCourseGrade(c, parsed) === "履修中");
+        const totalCredits = [...completed, ...inProgress].reduce((sum, c) => sum + (c.credits || 0), 0);
+        return totalCredits >= subSection.required_count;
+      }).length;
+
+      group.sections.forEach((subSection, index) => {
+        const required = [], electiveRequired = [], elective = [];
+        subSection.courses.forEach(c => {
+          if (c.category === 'required') required.push(c);
+          else if (c.category === 'elective_required') electiveRequired.push(c);
+          else elective.push(c);
+        });
+
+        const completed = subSection.courses.filter(c => courseMatches(c, takenCourses));
+        totalCompletedCredits += completed.reduce((sum, c) => sum + (c.credits || 0), 0);
+        const completedCredits = completed.reduce((sum, c) => sum + (c.credits || 0), 0);
+        const sectionSatisfiedByCompleted = completedCredits >= subSection.required_count;
+        if (sectionSatisfiedByCompleted) satisfiedSectionCount++;
+
+        const inProgress = subSection.courses.filter(c => getCourseGrade(c, parsed) === "履修中");
+        const totalCredits = [...completed, ...inProgress].reduce((sum, c) => sum + (c.credits || 0), 0);
+        const sectionSatisfiedByProgress = totalCredits >= subSection.required_count;
+
+        const shouldShowRed = satisfiedByProgressCount < group.required_section_count && !sectionSatisfiedByProgress;
+
+        outputDiv.innerHTML += `<h3>${subSection.title}（${subSection.required_count}単位以上）</h3>`;
+        displayGroup(required, '必修', required.length, true, isLabelSuppressed, shouldShowRed);
+        displayGroup(electiveRequired, '選択必修', subSection.required_course_count?.elective_required || 0, true, isLabelSuppressed, shouldShowRed);
+        displayGroup(elective, '選択', null, true, isLabelSuppressed, shouldShowRed);
+      });
+
+      outputDiv.innerHTML += satisfiedSectionCount < group.required_section_count
+        ? `<p style="color: red;"><b>✖ ${group.required_section_count}分野以上の履修が必要です（現在${satisfiedSectionCount}分野）</b></p>`
+        : `<p style="color: green;"><b>✔ ${group.required_section_count}分野以上の履修を満たしています</b></p>`;
+    }
+
+
+
+      const meetsTotal = totalCompletedCredits >= qual.total_credits_required;
+      if (!meetsTotal) allRequirementsMet = false;
+
+      outputDiv.innerHTML += `<h3>合計取得単位数：${totalCompletedCredits}/${qual.total_credits_required}単位</h3>`;
+      outputDiv.innerHTML += allRequirementsMet
+        ? `<p style="color: green; font-weight: bold;">✔ 資格取得要件をすべて満たしています</p>`
+        : `<p style="color: red; font-weight: bold;">✖ 資格取得要件を満たしていません</p>`;
+
+      document.getElementById("legend").style.display = "block";
+      document.getElementById("result").style.display = "block";
+    }
+
+    window.addEventListener("DOMContentLoaded", loadQualificationData);
+  </script>
+</body>
+</html>
