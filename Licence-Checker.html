@@ -207,9 +207,6 @@ const electiveRequiredCredits = electiveRequiredTakenOrInProgress.reduce((sum, c
 const electiveRequiredNeedCount = section.required_course_count?.elective_required || 0;
 const electiveRequiredNeedsAttention = electiveRequiredCredits < electiveRequiredNeedCount;
 
-// displayGroup に必要なフラグを渡す
-displayGroup(electiveRequired, '選択必修', electiveRequiredNeedCount, false, isLabelSuppressed, electiveRequiredNeedsAttention);
-
 
 if (!sectionRequirementMet) allRequirementsMet = false;
 
