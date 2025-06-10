@@ -118,6 +118,8 @@
 
       let totalCompletedCredits = 0; // 履修済みの単位数
 
+      let totalPlannedCredits = 0; // 取得予定単位数（履修中も含む）
+
 
       function displayGroup(group, title, needCount = null, isGrouped = false, suppressLabel = false, sectionNeedsAttention = false) {
   if (group.length === 0) return;
@@ -208,6 +210,10 @@ if (!sectionRequirementMet) allRequirementsMet = false;
         const completed = section.courses.filter(c => courseMatches(c, takenCourses));
         totalCredits += completed.reduce((sum, c) => sum + (c.credits || 0), 0);
         totalCompletedCredits += completed.reduce((sum, c) => sum + (c.credits || 0), 0);
+
+        const inProgress = section.courses.filter(c => getCourseGrade(c, parsed) === "履修中");
+        totalPlannedCredits += inProgress.reduce((sum, c) => sum + (c.credits || 0), 0);
+
       });
 
       // grouped electives
@@ -222,6 +228,8 @@ if (!sectionRequirementMet) allRequirementsMet = false;
         const allCourses = subSection.courses;
         const completed = allCourses.filter(c => courseMatches(c, takenCourses));
         const inProgress = allCourses.filter(c => getCourseGrade(c, parsed) === "履修中");
+        totalPlannedCredits += inProgress.reduce((sum, c) => sum + (c.credits || 0), 0);
+
         const totalCredits = [...completed, ...inProgress].reduce((sum, c) => sum + (c.credits || 0), 0);
         return totalCredits >= subSection.required_count;
       }).length;
@@ -261,6 +269,7 @@ if (!sectionRequirementMet) allRequirementsMet = false;
 
       const meetsTotal = totalCompletedCredits >= qual.total_credits_required;
       if (!meetsTotal) allRequirementsMet = false;
+      outputDiv.innerHTML += `<h4>取得予定単位数（履修中含む）：${totalCompletedCredits + totalPlannedCredits}/${qual.total_credits_required}単位</h4>`;
 
       outputDiv.innerHTML += `<h3>合計取得単位数：${totalCompletedCredits}/${qual.total_credits_required}単位</h3>`;
       outputDiv.innerHTML += allRequirementsMet
