@@ -766,5 +766,69 @@
       }
     ],
     "total_credits_required": 18
+  },
+  "informatics_highschool_license": {
+    "name": "高等学校教諭一種免許状（情報）",
+    "sections": [
+      {
+        "title": "情報社会及び情報倫理",
+        "required_count": 1,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GA10101", "name": "情報社会と法制度", "credits": 2, "category": "required"},
+          { "id": "GA10201", "name": "知的財産概論", "credits": 2, "category": "elective"}
+        ]
+      },
+      {
+        "title": "コンピュータ及び情報処理",
+        "required_count": 1,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": ["GA18212","GA18222","GA18232","GA18242"], "name": "プログラミング入門A", "credits": 2, "category": "required"},
+          { "id": ["GA18312","GA18322","GA18332","GA18342"], "name": "プログラミング入門B", "credits": 2, "category": "elective" },
+          { "id": "GE70801", "name": "データ表現と処理", "credits": 2, "category": "elective" },
+          { "id": "GE21201", "name": "コンピュータシステムとネットワーク", "credits": 2, "category": "elective" }
+        ]
+      },
+      {
+        "title": "情報システム",
+        "required_count": 1,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": ["GE61901","GE70501"], "name": "情報検索システム", "credits": 2, "category": "required"},
+          { "id": "GE21101", "name": "データベース概説", "credits": 2, "category": "elective" },
+          { "id": "GE21301", "name": "自然言語解析基礎", "credits": 2, "category": "elective" }
+        ]
+      },
+      {
+        "title": "情報通信ネットワーク",
+        "required_count": 1,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GE70601", "name": "Webプログラミング", "credits": 2, "category": "required"}
+        ]
+      },
+      {
+        "title": "メルチメディアシステム",
+        "required_count": 1,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "GE70701", "name": "マルチメディアシステム", "credits": 2, "category": "required"},
+          { "id": "GE70301", "name": "ディジタルドキュメント", "credits": 2, "category": "elective" },
+          { "id": "GE71001", "name": "情報デザインとインタフェース", "credits": 2, "category": "elective" },
+          { "id": "GE71901", "name": "マークアップ言語", "credits": 2, "category": "elective" }
+        ]
+      },
+      {
+        "title": "情報と職業",
+        "required_count": 1,
+        "required_course_count":{"elective_required":0},
+        "courses": [
+          { "id": "9005001", "name": "情報と職業", "credits": 2, "category": "required"},
+          { "id": "GE40603", "name": "インターンシップ", "credits": 2, "category": "elective"}
+        ]
+      }
+    ],
+    "total_credits_required": 20
   }
 }
