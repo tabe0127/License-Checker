@@ -118,8 +118,7 @@
 
       let totalCompletedCredits = 0; // 履修済みの単位数
 
-      let totalPlannedCredits = 0; // 取得予定単位数（履修中も含む）
-
+      
 
       function displayGroup(group, title, needCount = null, isGrouped = false, suppressLabel = false, sectionNeedsAttention = false) {
   if (group.length === 0) return;
@@ -200,20 +199,29 @@ if (completedCredits < section.required_count) {
   sectionRequirementMet = false;
 }
 
+// 選択必修の中で履修済み＋履修中の合計単位
+const electiveRequiredTakenOrInProgress = electiveRequired.filter(c =>
+  courseMatches(c, takenCourses) || getCourseGrade(c, parsed) === "履修中"
+);
+const electiveRequiredCredits = electiveRequiredTakenOrInProgress.reduce((sum, c) => sum + (c.credits || 0), 0);
+const electiveRequiredNeedCount = section.required_course_count?.elective_required || 0;
+const electiveRequiredNeedsAttention = electiveRequiredCredits < electiveRequiredNeedCount;
+
+// displayGroup に必要なフラグを渡す
+displayGroup(electiveRequired, '選択必修', electiveRequiredNeedCount, false, isLabelSuppressed, electiveRequiredNeedsAttention);
+
+
 if (!sectionRequirementMet) allRequirementsMet = false;
 
         outputDiv.innerHTML += `<h3>${section.title}（${section.required_count}単位以上）</h3>`;
         displayGroup(required, '必修', required.length, false, isLabelSuppressed, sectionNeedsAttention);
-        displayGroup(electiveRequired, '選択必修', section.required_course_count?.elective_required || 0, false, isLabelSuppressed, sectionNeedsAttention);
-        displayGroup(elective, '選択', null, false, isLabelSuppressed, sectionNeedsAttention);
+displayGroup(electiveRequired, '選択必修', electiveRequiredNeedCount, false, isLabelSuppressed, electiveRequiredNeedsAttention);
+displayGroup(elective, '選択', null, false, isLabelSuppressed, sectionNeedsAttention);
+
 
         const completed = section.courses.filter(c => courseMatches(c, takenCourses));
         totalCredits += completed.reduce((sum, c) => sum + (c.credits || 0), 0);
         totalCompletedCredits += completed.reduce((sum, c) => sum + (c.credits || 0), 0);
-
-        const inProgress = section.courses.filter(c => getCourseGrade(c, parsed) === "履修中");
-        totalPlannedCredits += inProgress.reduce((sum, c) => sum + (c.credits || 0), 0);
-
       });
 
       // grouped electives
@@ -228,8 +236,6 @@ if (!sectionRequirementMet) allRequirementsMet = false;
         const allCourses = subSection.courses;
         const completed = allCourses.filter(c => courseMatches(c, takenCourses));
         const inProgress = allCourses.filter(c => getCourseGrade(c, parsed) === "履修中");
-        totalPlannedCredits += inProgress.reduce((sum, c) => sum + (c.credits || 0), 0);
-
         const totalCredits = [...completed, ...inProgress].reduce((sum, c) => sum + (c.credits || 0), 0);
         return totalCredits >= subSection.required_count;
       }).length;
@@ -255,9 +261,10 @@ if (!sectionRequirementMet) allRequirementsMet = false;
         const shouldShowRed = satisfiedByProgressCount < group.required_section_count && !sectionSatisfiedByProgress;
 
         outputDiv.innerHTML += `<h3>${subSection.title}（${subSection.required_count}単位以上）</h3>`;
-        displayGroup(required, '必修', required.length, true, isLabelSuppressed, shouldShowRed);
-        displayGroup(electiveRequired, '選択必修', subSection.required_course_count?.elective_required || 0, true, isLabelSuppressed, shouldShowRed);
-        displayGroup(elective, '選択', null, true, isLabelSuppressed, shouldShowRed);
+        displayGroup(required, '必修', required.length, false, isLabelSuppressed, sectionNeedsAttention);
+displayGroup(electiveRequired, '選択必修', electiveRequiredNeedCount, false, isLabelSuppressed, electiveRequiredNeedsAttention);
+displayGroup(elective, '選択', null, false, isLabelSuppressed, sectionNeedsAttention);
+
       });
 
       outputDiv.innerHTML += satisfiedSectionCount < group.required_section_count
@@ -269,7 +276,6 @@ if (!sectionRequirementMet) allRequirementsMet = false;
 
       const meetsTotal = totalCompletedCredits >= qual.total_credits_required;
       if (!meetsTotal) allRequirementsMet = false;
-      outputDiv.innerHTML += `<h4>取得予定単位数（履修中含む）：${totalCompletedCredits + totalPlannedCredits}/${qual.total_credits_required}単位</h4>`;
 
       outputDiv.innerHTML += `<h3>合計取得単位数：${totalCompletedCredits}/${qual.total_credits_required}単位</h3>`;
       outputDiv.innerHTML += allRequirementsMet
