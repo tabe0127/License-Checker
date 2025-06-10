@@ -785,7 +785,7 @@
         "required_course_count":{"elective_required":0},
         "courses": [
           { "id": ["GA18212","GA18222","GA18232","GA18242"], "name": "プログラミング入門A", "credits": 2, "category": "required"},
-          { "id": ["GA18312","GA18322","GA18332","GA18342"], "name": "プログラミング入門B", "credits": 2, "category": "elective" },
+          { "id": ["GA18312","GA18322","GA18332","GA18342"], "name": "プログラミング入門B", "credits": 1, "category": "elective" },
           { "id": "GE70801", "name": "データ表現と処理", "credits": 2, "category": "elective" },
           { "id": "GE21201", "name": "コンピュータシステムとネットワーク", "credits": 2, "category": "elective" }
         ]
@@ -824,7 +824,7 @@
         "required_count": 1,
         "required_course_count":{"elective_required":0},
         "courses": [
-          { "id": "9005001", "name": "情報と職業", "credits": 2, "category": "required"},
+          { "id": "9005001", "name": "情報と職業", "credits": 1, "category": "required"},
           { "id": "GE40603", "name": "インターンシップ", "credits": 2, "category": "elective"}
         ]
       }
